@@ -1,7 +1,7 @@
 import os
 import csv
 
-csvpath = "C:/Users/Encinas/Desktop/DATAVIZ/python/pybank/Resources/budget_data.csv"
+csvpath = "Resources/budget_data.csv"
 
 #lists to store data
 Month = []
@@ -29,29 +29,18 @@ with open(csvpath) as csvfile:
 #The average of the changes in “Profit/Losses” over the entire period      
 Average= int(sum(Increase)) / (len(Month))
 
-print("Financial Analysis")
-print(f"Total Months:"+(str(len(Month))))
-print(f"Total: {str(Total)}")
-print(f"Average change: {str(Average)}")
-print(f"Greatest increase in profits:{str(Month[Increase.index(max(Increase))+1])} {str(max(Increase))}")
-print(f"Greatest decrease in profits:{str(Month[Increase.index(min(Increase))+1])} {str(min(Increase))}")
 
-# Zip lists together
-#cleaned_csv = zip(title, price, subscribers, reviews, review_percent, length)
 
-# Set variable for output file
+line1=(f"Financial Analysis")
+line2=("Total Months:"+(str(len(Month))))
+line3=("Total:"+(str(Total)))
+line4=("Average change:"+(str(Average)))
+line5=("Greatest increase in profits:"+(str(Month[Increase.index(max(Increase))+1]))+(str(max(Increase))))
+line6=("Greatest decrease in profits:"+(str(Month[Increase.index(min(Increase))+1]))+(str(min(Increase))))
+
+output=(line1,line2,line3,line4,line5,line6)
+print(output)
+
 file=open("budget_data.txt","w")
-
-file.write("Financial analysis")
+file.write(str(output))
 file.close()
-
-#output_file = os.path.join("budget_data.txt")
-
-#with open("budget_data.txt", "r") as file:
-    #print("Financial Analysis")
-    #writer = csv.writer(datafile)
-
-    # Write the header row
-    #writer.writerow(["Title", "Course Price", "Subscribers", "Reviews Left","Percent of Reviews", "Length of Course"])
-    # Write in zipped rows
-    #writer.writerows(cleaned_csv)
