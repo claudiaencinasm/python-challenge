@@ -1,46 +1,37 @@
 import os
 import csv
 
-csvpath = "Resources/budget_data.csv"
+election_csv = os.path.join("Resources", "election_data.csv")
 
-#lists to store data
-Month = []
-Profit=[]
-Increase=[]
-
-Total=0
+Candidate_list=[]
+Candidate_votes=[]
 
 # Open and read csv
-with open(csvpath) as csvfile:
+with open(election_csv) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
+
     # Read the header row first (skip this part if there is no header)
     csv_header = next(csvfile)
-    # Read through each row of data 
+
+    # Read through each row of data after the header
     for row in csvreader:
-        #The total number of months included in the dataset
-        Month.append(row[0])
-        #The net total amount of “Profit/Losses” over the entire period
-        Total += int(row[1])
-        #The greatest increase in profits (date and amount) over the entire period
-        Profit.append(int(row[1]))
-    for i in range((len(Profit))-1):
-        Increase.append(Profit[i + 1] - Profit[i])
+        #The total number of votes cast
+        Candidate_votes.append(row[2])
+        #A complete list of candidates who received votes
+        for i in Candidate_votes:
+                if i not in Candidate_list:
+                    Candidate_list.append(i)
+        #The percentage of votes each candidate won
 
-#The average of the changes in “Profit/Losses” over the entire period      
-Average= int(sum(Increase)) / (len(Month))
+        #The total number of votes each candidate won
 
+        # The winner of the election based on popular vote.
 
+print(f"Election Results")
+print("Total Votes:"+(str(len(Candidate_votes))))
+print(str(Candidate_list))
 
-line1=(f"Financial Analysis")
-line2=("Total Months:"+(str(len(Month))))
-line3=("Total:"+(str(Total)))
-line4=("Average change:"+(str(Average)))
-line5=("Greatest increase in profits:"+(str(Month[Increase.index(max(Increase))+1]))+(str(max(Increase))))
-line6=("Greatest decrease in profits:"+(str(Month[Increase.index(min(Increase))+1]))+(str(min(Increase))))
-
-output=(line1,line2,line3,line4,line5,line6)
-print(output)
-
-file=open("budget_data.txt","w")
-file.write(str(output))
-file.close()
+#line3=("Total:"+(str(Total)))
+#line4=("Average change:"+(str(Average)))
+#line5=("Greatest increase in profits:"+(str(Month[Increase.index(max(Increase))+1]))+(str(max(Increase))))
+#line6=("Greatest decrease in profits:"+(str(Month[Increase.index(min(Increase))+1]))+(str(min(Increase))))
